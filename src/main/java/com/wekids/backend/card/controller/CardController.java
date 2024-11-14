@@ -22,7 +22,7 @@ public class CardController {
     @GetMapping("/{cardId}")
     public CardResponse getCardDetails(@PathVariable Long cardId) {
 
-        Card card = cardService.findById(cardId).get();
+        Card card = cardService.findById(cardId);
         Design design = designRepository.findByCard(card);
 
         return new CardResponse(
