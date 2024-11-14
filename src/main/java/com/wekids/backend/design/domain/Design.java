@@ -22,11 +22,11 @@ public class Design {
     private Member member;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // 추가
     private ColorType color;
 
     @Column(name = "`character`", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // 추가
     private CharacterType character;
 
     @OneToOne(fetch = FetchType.LAZY)
