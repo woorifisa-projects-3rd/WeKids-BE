@@ -1,4 +1,4 @@
-package com.wekids.backend.utils.masking.strategy;
+package com.wekids.backend.util.masking.strategy;
 
 import java.math.BigDecimal;
 
