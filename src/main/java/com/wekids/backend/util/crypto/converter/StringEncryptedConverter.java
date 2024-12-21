@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Converter
-public class EncryptedConverter implements AttributeConverter<String, String> {
+public class StringEncryptedConverter implements AttributeConverter<String, String> {
 
     private final PrivacyEncryptor privacyEncryptor;
 
