@@ -1,8 +1,8 @@
 package com.wekids.backend.config;
 
-import com.wekids.backend.utils.masking.strategy.DataMaskingStrategy;
-import com.wekids.backend.utils.masking.strategy.MaskingStrategy;
-import com.wekids.backend.utils.masking.strategy.NoMaskingStrategy;
+import com.wekids.backend.util.masking.strategy.DataMaskingStrategy;
+import com.wekids.backend.util.masking.strategy.MaskingStrategy;
+import com.wekids.backend.util.masking.strategy.NoMaskingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Profile;
 public class MaskingStrategyConfig {
 
     @Bean
-    @Profile({"release", "test"})
+    @Profile({"release"})
     public DataMaskingStrategy noMaskingStrategy() {
         return new NoMaskingStrategy();
     }
 
     @Bean
-    @Profile({"dev"})
+    @Profile({"dev", "test"})
     public DataMaskingStrategy maskingStrategy() {
         return new MaskingStrategy();
     }
