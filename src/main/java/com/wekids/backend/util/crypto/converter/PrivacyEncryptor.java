@@ -1,4 +1,4 @@
-package com.wekids.backend.util.masking.converter;
+package com.wekids.backend.util.crypto.converter;
 
 public interface PrivacyEncryptor {
     String encrypt(String raw) throws Exception;

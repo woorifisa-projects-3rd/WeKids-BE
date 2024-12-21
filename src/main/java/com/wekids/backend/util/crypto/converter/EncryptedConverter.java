@@ -1,4 +1,4 @@
-package com.wekids.backend.util.masking.converter;
+package com.wekids.backend.util.crypto.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
