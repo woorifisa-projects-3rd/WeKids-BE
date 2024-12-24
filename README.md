@@ -41,7 +41,7 @@
 ### ![Group 35603](https://github.com/user-attachments/assets/6a3472b6-6f83-4d9a-aedd-995505f85090)
 
 ### 1. 카드 커스텀
-자녀가 원하는 카드를 커스텀하여 카드 개설을 할 수 있습니다
+자녀가 원하는 카드를 커스텀하여 카드 개설을 할 수 있습니다.
 <img width="908" alt="image" src="https://github.com/user-attachments/assets/3fb4b246-e781-4855-b945-24958a51ec10" />
 
 
@@ -57,6 +57,9 @@
 미션 기능을 통해 자녀에게 용돈을 지급할 수 있습니다.
 ![image](https://github.com/user-attachments/assets/c659b2c3-3223-46e6-b26c-1ce489a9595e)
 
+### 4. 금융 아티클
+금융 아티클을 통해 자녀의 경제 교육에 도움을 받을 수 있습니다.
+![image](https://github.com/user-attachments/assets/83c9a56a-03b2-46f0-be7a-ef5bf9602336)
 
 
 <br>
