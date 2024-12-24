@@ -67,9 +67,8 @@ WeKids는 우리 아이 경제 습관 형성 플랫폼으로 'BaaS(Banking as a 
 
 [BaaS 레파지토리 링크](https://github.com/woorifisa-projects-3rd/WeKids-BaaS)
 
-![스크린샷 2024-12-24 오후 9 28 50](https://github.com/user-attachments/assets/005a7400-b91c-4efe-9ff5-5fd70d0c93f2)
 ![스크린샷 2024-12-24 오후 9 28 44](https://github.com/user-attachments/assets/aed215f0-1eaa-4d40-9d85-9e091b6f40a4)
-
+![스크린샷 2024-12-24 오후 9 28 50](https://github.com/user-attachments/assets/005a7400-b91c-4efe-9ff5-5fd70d0c93f2)
 
 <br>
 
@@ -110,7 +109,7 @@ WeKids는 우리 아이 경제 습관 형성 플랫폼으로 'BaaS(Banking as a 
 | :------------------------------------------------------------: | :-----------------------------------------------------: | :-------------------------------------------------------: |
 |           [강현우](https://github.com/khwoowoo)           |           [구자빈](https://github.com/jabin1221)           |           [안찬웅](https://github.com/AnChanUng)           |
 |                           풀스택                           |                       풀스택                        |                        풀스택                         |
-|        클라우드 인프라 및 <br> CI/CD 파이프라인 구축, <br> 인증/인가, 관리자 API     |        거래내역 조회 API         |       카드 디자인 API        |
+|        클라우드 인프라 및 <br> CI/CD 파이프라인 구축, <br>  인증/인가, 이벤트 로깅, <br>  사용자 데이터 암호화 및 마스킹 처리     |        거래내역 조회 API         |       카드 디자인 API        |
 
 | <img src="https://avatars.githubusercontent.com/u/60471550?v=4" width="200" /> | <img src="https://avatars.githubusercontent.com/u/66460447?v=4" width="200" /> | 
 | :-------------------------------------------------------: | :--------------------------------------------------------: | 
