@@ -61,14 +61,19 @@
 
 <br>
 
-<!--
-## ✨ 프로젝트 핵심 기능
-## <img width=1000 src="https://github.com/user-attachments/assets/9f4a4c87-88b5-4f3d-aa64-522e5e1ca55d">
-## <img width=1000 src="https://github.com/user-attachments/assets/f493fa67-b153-4fc7-9494-b2aedbe82cb1">
-<img width=1000 src="https://github.com/user-attachments/assets/3876c628-6191-4109-968d-79a28a0e86a8">
-<img width=1000 src="https://github.com/user-attachments/assets/53cf6146-8c02-4454-99b8-fcbe3276ec31">
--->
-<br/>
+WeKids는 우리 아이 경제 습관 형성 플랫폼으로 'BaaS(Banking as a Service) 기반 임베디드 금융 서비스'입니다. <br>
+직접 제작한 BaaS를 통해 계좌 및 카드를 개설하고 이체, 거래 내역을 조회하고 있습니다.
+
+[BaaS 레파지토리 링크](https://github.com/woorifisa-projects-3rd/WeKids-BaaS)
+
+![image](https://github.com/user-attachments/assets/ccd1840b-fc4d-4c59-a9d9-75c94ee30f3c)
+![image](https://github.com/user-attachments/assets/dba63b56-f2c6-4639-aafd-b1c73f470a41)
+
+<br>
+
+또한, 개발 및 테스트 환경에서는 사용자 정보를 마스킹 처리하였습니다.
+![image](https://github.com/user-attachments/assets/16a0087e-0082-4d27-8c4a-4bdd01e6395d)
+
 
 ## 🎥 시연 영상
 
