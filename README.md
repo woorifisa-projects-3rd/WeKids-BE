@@ -42,7 +42,8 @@
 
 ### 1. 카드 커스텀
 자녀가 원하는 카드를 커스텀하여 카드 개설을 할 수 있습니다
-<img width="904" alt="image" src="https://github.com/user-attachments/assets/bf4b523c-730c-49eb-8529-40e85d283b36" />
+<img width="908" alt="image" src="https://github.com/user-attachments/assets/3fb4b246-e781-4855-b945-24958a51ec10" />
+
 
 <br>
 
@@ -54,7 +55,8 @@
 
 ### 3. 미션 기능
 미션 기능을 통해 자녀에게 용돈을 지급할 수 있습니다.
-![image](https://github.com/user-attachments/assets/9161baf7-0d58-487c-a23e-550e5aba0029)
+![image](https://github.com/user-attachments/assets/c659b2c3-3223-46e6-b26c-1ce489a9595e)
+
 
 
 <br>
