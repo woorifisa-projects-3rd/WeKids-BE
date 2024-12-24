@@ -61,7 +61,7 @@
 
 ### 4. 금융 아티클
 금융 아티클을 통해 자녀의 경제 교육에 도움을 받을 수 있습니다.
-![image](https://github.com/user-attachments/assets/83c9a56a-03b2-46f0-be7a-ef5bf9602336)
+![image](https://github.com/user-attachments/assets/9595f52e-e21c-47fe-84f8-49a6ca8a144d)
 
 
 <br>
