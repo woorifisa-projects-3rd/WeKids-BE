@@ -54,7 +54,8 @@
 
 ### 3. 미션 기능
 미션 기능을 통해 자녀에게 용돈을 지급할 수 있습니다.
-![image](https://github.com/user-attachments/assets/655dc77d-4fff-4baa-9eb8-f768525f60d4)
+![image](https://github.com/user-attachments/assets/9161baf7-0d58-487c-a23e-550e5aba0029)
+
 
 <br>
 
