@@ -57,6 +57,8 @@
 미션 기능을 통해 자녀에게 용돈을 지급할 수 있습니다.
 ![image](https://github.com/user-attachments/assets/c659b2c3-3223-46e6-b26c-1ce489a9595e)
 
+<br>
+
 ### 4. 금융 아티클
 금융 아티클을 통해 자녀의 경제 교육에 도움을 받을 수 있습니다.
 ![image](https://github.com/user-attachments/assets/83c9a56a-03b2-46f0-be7a-ef5bf9602336)
