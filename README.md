@@ -32,13 +32,67 @@
 - 금융 피드
     - 미션을 수행하며 나에게 필요한 금융 상식을 학습 할 수 있다.
     - 경제 개념을 확립할 수 있음
- 
-  
-## 👻 팀원구성
+
+
+<br/>
+
+## ⭐ 프로젝트 주요 기능
+
+### ![Group 35603](https://github.com/user-attachments/assets/6a3472b6-6f83-4d9a-aedd-995505f85090)
+
+### 1. 카드 커스텀
+자녀가 원하는 카드를 커스텀하여 카드 개설을 할 수 있습니다
+<img width="904" alt="image" src="https://github.com/user-attachments/assets/bf4b523c-730c-49eb-8529-40e85d283b36" />
+
+<br>
+
+### 2. 자녀의 소비내역 공유
+부모가 자녀의 거래내역을 공유함으로써, 자녀의 소비습관을 확인하고 개선할 수 있습니다.
+<img width="1023" alt="image" src="https://github.com/user-attachments/assets/0d6d1718-2f11-457b-87c7-7cbd332b2cd8" />
+
+<br>
+
+### 3. 미션 기능
+미션 기능을 통해 자녀에게 용돈을 지급할 수 있습니다.
+![image](https://github.com/user-attachments/assets/655dc77d-4fff-4baa-9eb8-f768525f60d4)
+
+<br>
+
+<!--
+## ✨ 프로젝트 핵심 기능
+## <img width=1000 src="https://github.com/user-attachments/assets/9f4a4c87-88b5-4f3d-aa64-522e5e1ca55d">
+## <img width=1000 src="https://github.com/user-attachments/assets/f493fa67-b153-4fc7-9494-b2aedbe82cb1">
+<img width=1000 src="https://github.com/user-attachments/assets/3876c628-6191-4109-968d-79a28a0e86a8">
+<img width=1000 src="https://github.com/user-attachments/assets/53cf6146-8c02-4454-99b8-fcbe3276ec31">
+-->
+<br/>
+
+## 🎥 시연 영상
+
+[위키즈 시연 영상](https://youtu.be/Cp5KYt7Kj7A)✨
+
+<br/>
+
+
+## 📚 기술 스택
+
+### <img width="1920" alt="Problem 31@2x" src="https://github.com/user-attachments/assets/ed12aede-7394-4004-8bde-7741c2f15eeb" />
+
+
+<br />
+
+## 🗃️ 인프라 구조도
+
+### 개발인프라
+![개발인프라](https://github.com/user-attachments/assets/e8529ca7-9c80-442e-8786-cdf023756b04)
+
+### 운영인프라
+![운영인프라](https://github.com/user-attachments/assets/24567d17-65ab-4340-8f9e-600196310a56)
+
 
 ## 💟 Contributors
 
-## 👻 팀원구성
+### 👻 팀원구성
 
 | <img src="https://avatars.githubusercontent.com/u/23547185?v=4" width="200" /> | <img src="https://avatars.githubusercontent.com/u/117137078?v=4" width="200" /> | <img src="https://avatars.githubusercontent.com/u/104750924?v=4" width="200" /> |
 | :------------------------------------------------------------: | :-----------------------------------------------------: | :-------------------------------------------------------: |
@@ -53,40 +107,6 @@
 |        금융코어 API, 미션기능 API         |         용돈 지급 API          |  
 
 <br/>
-
-
-<br/>
-
-## ⭐ 프로젝트 주요 기능
-
-## ![Group 35603](https://github.com/user-attachments/assets/6a3472b6-6f83-4d9a-aedd-995505f85090)
-
-
-
-<br/>
-
-## 🎥 시연 영상
-
-[위키즈 시연 영상](https://youtu.be/Cp5KYt7Kj7A)
-
-<br/>
-
-
-## 📚 기술 스택
-
-## <img width="1920" alt="Problem 31@2x" src="https://github.com/user-attachments/assets/ed12aede-7394-4004-8bde-7741c2f15eeb" />
-
-
-<br />
-
-## 🗃️ 인프라 구조도
-
-### 개발인프라
-![개발인프라](https://github.com/user-attachments/assets/e8529ca7-9c80-442e-8786-cdf023756b04)
-
-### 운영인프라
-![운영인프라](https://github.com/user-attachments/assets/24567d17-65ab-4340-8f9e-600196310a56)
-
 
 
 <br/>
