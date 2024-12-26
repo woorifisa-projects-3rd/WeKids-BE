@@ -1,6 +1,6 @@
-package com.wekids.backend.utils.masking.service;
+package com.wekids.backend.util.masking.service;
 
-import com.wekids.backend.utils.masking.strategy.DataMaskingStrategy;
+import com.wekids.backend.util.masking.strategy.DataMaskingStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
