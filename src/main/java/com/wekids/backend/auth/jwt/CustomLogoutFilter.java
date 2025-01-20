@@ -46,7 +46,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
         Cookie[] cookies = request.getCookies();
 
         if (cookies == null || cookies.length == 0) {
-            sendErrorResponse(response, "No cookies found.");
+            sendErrorResponse(response, ErrorCode.NOT_FIND_COOKIE,"요청한 쿠기가 없습니다.");
             return;
         }
 
@@ -57,26 +57,26 @@ public class CustomLogoutFilter extends GenericFilterBean {
         }
 
         if (refresh == null) {
-            sendErrorResponse(response, "Refresh token not found.");
+            sendErrorResponse(response, ErrorCode.NOT_FIND_COOKIE, "요청한 쿠키 중 refresh를 찾을 수 없습니다.");
             return;
         }
 
         try {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
-            sendErrorResponse(response, "Refresh token is expired.");
+            sendErrorResponse(response, ErrorCode.EXPIRE_TOKEN, "만료된 Refresh 토큰입니다.");
             return;
         }
 
         String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refresh")) {
-            sendErrorResponse(response, "Invalid token category.");
+            sendErrorResponse(response, ErrorCode.INVALID_TOKEN_CATEGORY, "해당 토큰은 " + category + " 유형의 토큰입니다.");
             return;
         }
 
         Boolean isExist = refreshTokenRepository.existsByToken(refresh);
         if (!isExist) {
-            sendErrorResponse(response, "Refresh token does not exist.");
+            sendErrorResponse(response, ErrorCode.NOT_FIND_TOKEN, "서버에 DB에 없는 토큰입니다.");
             return;
         }
 
@@ -90,9 +90,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    private void sendErrorResponse(HttpServletResponse response,String message) throws IOException {
-        ErrorCode errorCode = ErrorCode.BAD_REQUEST_COOKIE;
-
+    private void sendErrorResponse(HttpServletResponse response, ErrorCode errorCode, String message) throws IOException {
         response.setStatus(errorCode.getStatus().value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
