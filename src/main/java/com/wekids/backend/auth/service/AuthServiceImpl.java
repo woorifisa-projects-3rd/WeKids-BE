@@ -40,6 +40,79 @@ public class AuthServiceImpl implements AuthService{
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
+    public void signup(SignUpRequest signUpRequest, HttpServletRequest request, HttpServletResponse response) {
+        validateAlreadyExistEmail(signUpRequest);
+
+        Long memberId = signUpRequest.getMemberType().equals(MemberType.PARENT) ? signupParent(signUpRequest) : signupChild(signUpRequest);
+
+        String access = jwtUtil.createJwt("access", memberId, "ROLE_" + signUpRequest.getMemberType());
+        String refresh = jwtUtil.createJwt("refresh", memberId, "ROLE_" + signUpRequest.getMemberType());
+
+        Member member = findMemberByMemberId(memberId);
+        refreshTokenRepository.save(RefreshToken.of(refresh, member, jwtUtil.getExpirationTime("refresh")));
+
+        response.setHeader("access", access);
+        response.addCookie(createCookie("refresh", refresh));
+    }
+
+    private void validateAlreadyExistEmail(SignUpRequest request){
+        if(memberRepository.existsAllByEmail(request.getEmail())){
+            throw new WekidsException(EMAIL_ALREADY_EXIST, request.getEmail() + "은 존재합니다");
+        }
+    }
+
+    private Long signupParent(SignUpRequest request){
+        validateAdult(request.getBirthday());
+        validateSimplePassword(request);
+
+        String encode = passwordEncoder.encode(request.getSimplePassword());
+        Parent parent = request.toParent(encode, request);
+
+        return memberRepository.save(parent).getId();
+    }
+
+    private void validateAdult(LocalDate birthdate) {
+        LocalDate today = LocalDate.now();
+        Period age = Period.between(birthdate, today);
+        if (age.getYears() < 19) {
+            throw new WekidsException(ErrorCode.INVALID_SIGNUP_AGE, "현재 나이는 " + age.getYears() + "입니다. 19세 이상이어야 합니다");
+        }
+    }
+
+    private void validateSimplePassword(SignUpRequest request){
+        if(request.getSimplePassword() == null){
+            throw new WekidsException(ErrorCode.INVALID_INPUT, request.getEmail() + "님은 간편 비밀번호가 없습니다");
+        }
+    }
+
+
+    private Long signupChild(SignUpRequest request){
+        validateUnderFourteen(request.getBirthday());
+
+        Parent parent = findParentByPhoneAndName(request.getGuardianPhone(), request.getGuardianName());
+        Child child = request.toChild(request);
+        ParentChild parentChild = ParentChild.of(parent, child);
+
+        Long childId = memberRepository.save(child).getId();
+        parentChildRepository.save(parentChild);
+
+        return childId;
+    }
+
+    public void validateUnderFourteen(LocalDate birthdate) {
+        LocalDate today = LocalDate.now();
+        Period age = Period.between(birthdate, today);
+        if (age.getYears() >= 14) {
+            throw new WekidsException(ErrorCode.INVALID_SIGNUP_AGE, "현재 나이는 " + age.getYears() + "입니다. 14세 미만이어야 합니다.");
+        }
+    }
+
+    private Parent findParentByPhoneAndName(String phone, String name){
+        return parentRepository.findByPhoneAndName(phone, name).orElseThrow(()
+                -> new WekidsException(ErrorCode.MEMBER_NOT_FOUND, phone + "의 전화번호를 가진 법정대리인은 Wekids에 부모 계정으로 회원가입하지 않았습니다."));
+    }
+
+    @Override
     public void reissue(HttpServletRequest request, HttpServletResponse response) {
         String beforeRefresh = findRefreshToken(request, response);
 
@@ -107,68 +180,5 @@ public class AuthServiceImpl implements AuthService{
     private Member findMemberByMemberId(Long memberId){
         return memberRepository.findById(memberId)
                 .orElseThrow(()->new WekidsException(ErrorCode.MEMBER_NOT_FOUND, memberId + "을 찾을 수 없습니다."));
-    }
-
-    @Override
-    public void signup(SignUpRequest signUpRequest) {
-        validateAlreadyExistEmail(signUpRequest);
-
-        if(signUpRequest.getMemberType().equals(MemberType.PARENT)) signupParent(signUpRequest);
-        else signupChild(signUpRequest);
-    }
-
-    private void validateAlreadyExistEmail(SignUpRequest request){
-        if(memberRepository.existsAllByEmail(request.getEmail())){
-            throw new WekidsException(EMAIL_ALREADY_EXIST, request.getEmail() + "은 존재합니다");
-        }
-    }
-
-    private void signupParent(SignUpRequest request){
-        validateAdult(request.getBirthday());
-        validateSimplePassword(request);
-
-        String encode = passwordEncoder.encode(request.getSimplePassword());
-        Parent parent = request.toParent(encode, request);
-
-        memberRepository.save(parent).getId();
-    }
-
-    private void validateAdult(LocalDate birthdate) {
-        LocalDate today = LocalDate.now();
-        Period age = Period.between(birthdate, today);
-        if (age.getYears() < 19) {
-            throw new WekidsException(ErrorCode.INVALID_SIGNUP_AGE, "현재 나이는 " + age.getYears() + "입니다. 19세 이상이어야 합니다");
-        }
-    }
-
-    private void validateSimplePassword(SignUpRequest request){
-        if(request.getSimplePassword() == null){
-            throw new WekidsException(ErrorCode.INVALID_INPUT, request.getEmail() + "님은 간편 비밀번호가 없습니다");
-        }
-    }
-
-
-    private void signupChild(SignUpRequest request){
-        validateUnderFourteen(request.getBirthday());
-
-        Parent parent = findParentByPhoneAndName(request.getGuardianPhone(), request.getGuardianName());
-        Child child = request.toChild(request);
-        ParentChild parentChild = ParentChild.of(parent, child);
-
-        memberRepository.save(child).getId();
-        parentChildRepository.save(parentChild);
-    }
-
-    public void validateUnderFourteen(LocalDate birthdate) {
-        LocalDate today = LocalDate.now();
-        Period age = Period.between(birthdate, today);
-        if (age.getYears() >= 14) {
-            throw new WekidsException(ErrorCode.INVALID_SIGNUP_AGE, "현재 나이는 " + age.getYears() + "입니다. 14세 미만이어야 합니다.");
-        }
-    }
-
-    private Parent findParentByPhoneAndName(String phone, String name){
-        return parentRepository.findByPhoneAndName(phone, name).orElseThrow(()
-                -> new WekidsException(ErrorCode.MEMBER_NOT_FOUND, phone + "의 전화번호를 가진 법정대리인은 Wekids에 부모 계정으로 회원가입하지 않았습니다."));
     }
 }

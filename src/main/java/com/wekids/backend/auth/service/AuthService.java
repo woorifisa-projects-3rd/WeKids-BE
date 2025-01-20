@@ -5,6 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface AuthService {
-    void signup(SignUpRequest signUpRequest);
+    void signup(SignUpRequest signUpRequest, HttpServletRequest request, HttpServletResponse response);
     void reissue(HttpServletRequest request, HttpServletResponse response);
 }

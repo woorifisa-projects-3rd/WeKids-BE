@@ -27,11 +27,11 @@ public class RefreshToken {
     @Column(name = "expiration_time", nullable = false)
     private LocalDateTime expirationTime;
 
-    public static RefreshToken of(String token, Member member, Long expirationSeconds) {
+    public static RefreshToken of(String token, Member member, Long expirationMilliseconds) {
         return RefreshToken.builder()
                 .token(token)
                 .member(member)
-                .expirationTime(LocalDateTime.now().plusSeconds(expirationSeconds))
+                .expirationTime(LocalDateTime.now().plusSeconds(expirationMilliseconds / 1000))
                 .build();
     }
 }
