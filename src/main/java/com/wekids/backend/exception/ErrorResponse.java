@@ -20,11 +20,20 @@ public class ErrorResponse {
     private String message;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String details;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private LocalDateTime timestamp;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<ValidErrorResponse> errors;
 
+
+    public static ErrorResponse createWithoutTimeStamp(ErrorCode errorCode, String message) {
+        return ErrorResponse.builder()
+                .errorCode(errorCode.toString())
+                .message(message)
+                .build();
+    }
 
     public static ErrorResponse of(String errorCode, String message) {
         return ErrorResponse.builder()

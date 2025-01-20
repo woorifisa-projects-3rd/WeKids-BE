@@ -34,7 +34,9 @@ public enum ErrorCode {
     NOT_MATCHED_PASSWORD(INTERNAL_SERVER_ERROR, "간편 비밀번호가 일치하지 않습니다."),
     FAILED_UPDATE_PASSWORD(INTERNAL_SERVER_ERROR, "비밀번호 변경에 실패했습니다"),
     RELATIONSHIP_NOT_FOUND(INTERNAL_SERVER_ERROR, "존재하지 않는 관계입니다."),
-    ALARM_NOT_FOUND(INTERNAL_SERVER_ERROR, "존재하지 않은 알림입니다.");
+    ALARM_NOT_FOUND(INTERNAL_SERVER_ERROR, "존재하지 않은 알림입니다."),
+    BAD_REQUEST_COOKIE(BAD_REQUEST, "요청한 쿠키가 잘 못 되었습니다.");
+
 
     private final HttpStatus status;
     private final String message;
