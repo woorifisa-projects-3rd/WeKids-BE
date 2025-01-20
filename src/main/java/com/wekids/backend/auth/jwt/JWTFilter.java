@@ -22,33 +22,20 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorization = null;
-        Cookie[] cookies = request.getCookies();
+        String accessToken = request.getHeader("access");
 
-        if(cookies == null){
+        if (accessToken == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("Authorization")){
-                authorization = cookie.getValue();
-            }
-        }
-
-        if(authorization == null){
+        if(jwtUtil.isExpired(accessToken)){
             filterChain.doFilter(request, response);
             return;
         }
 
-        String token = authorization;
-        if(jwtUtil.isExpired(token)){
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        Long memberId = jwtUtil.getMemberId(token);
-        String role = jwtUtil.getRole(token);
+        Long memberId = jwtUtil.getMemberId(accessToken);
+        String role = jwtUtil.getRole(accessToken);
         CustomOAuth2User customOAuth2User = CustomOAuth2User.of(LoginState.LOGIN, role, memberId);
         Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
