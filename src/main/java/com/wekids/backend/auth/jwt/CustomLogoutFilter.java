@@ -38,7 +38,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
         String requestMethod = request.getMethod();
         if (!requestMethod.equals("POST")) {
-            sendErrorResponse(response, HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Only POST method is allowed.");
+            filterChain.doFilter(request, response);
             return;
         }
 
