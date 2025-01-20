@@ -1,11 +1,13 @@
 package com.wekids.backend.config;
 
+import com.wekids.backend.auth.jwt.CustomLogoutFilter;
 import com.wekids.backend.auth.jwt.JWTFilter;
 import com.wekids.backend.auth.jwt.JWTUtil;
 import com.wekids.backend.auth.oauth2.CustomAccessDeniedHandler;
 import com.wekids.backend.auth.oauth2.CustomAuthenticationEntryPoint;
 import com.wekids.backend.auth.oauth2.CustomSuccessHandler;
 import com.wekids.backend.auth.service.CustomOAuth2UserService;
+import com.wekids.backend.refreshToken.repository.RefreshTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -34,6 +37,8 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final RefreshTokenRepository refreshTokenRepository;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         DelegatingPasswordEncoder passwordEncoder =
@@ -88,10 +93,12 @@ public class SecurityConfig {
                         .authenticationEntryPoint(authenticationEntryPoint)
                          .accessDeniedHandler(accessDeniedHandler)
                 );
-
+        http
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshTokenRepository), LogoutFilter.class);
         http
                 .authorizeHttpRequests((auth)->auth
                         .requestMatchers("/health").permitAll()
+                        .requestMatchers("/reissue").permitAll()
                         .requestMatchers("/api/v1/signup").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated());

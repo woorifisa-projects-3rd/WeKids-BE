@@ -11,11 +11,7 @@ import java.util.Date;
 
 @Component
 public class JWTUtil {
-
     private SecretKey secretKey;
-
-    @Value("${spring.jwt.expiration.access}")
-    private Long expirationSeconds;
 
     public JWTUtil(@Value("${spring.jwt.secret}")String secret) {
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
@@ -29,12 +25,22 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
 
+    public String getCategory(String category) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(category).getPayload().get("category", String.class);
+    }
+
     public Boolean isExpired(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(Long memberId, String role) {
+    public Long getExpirationTime(String category){
+        return category.equals("access") ? 600000L : 86400000L;
+    }
+
+    public String createJwt(String category, Long memberId, String role) {
+        Long expirationSeconds = getExpirationTime(category);
         return Jwts.builder()
+                .claim("category", category)
                 .claim("memberId", memberId)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))

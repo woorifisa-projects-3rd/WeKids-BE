@@ -5,6 +5,10 @@ import com.wekids.backend.auth.enums.LoginState;
 import com.wekids.backend.auth.jwt.JWTUtil;
 import com.wekids.backend.exception.ErrorCode;
 import com.wekids.backend.exception.WekidsException;
+import com.wekids.backend.member.domain.Member;
+import com.wekids.backend.member.repository.MemberRepository;
+import com.wekids.backend.refreshToken.domain.RefreshToken;
+import com.wekids.backend.refreshToken.repository.RefreshTokenRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +29,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Value("${client.url}")
     private String CLIENT_URL;
 
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final MemberRepository memberRepository;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
@@ -34,13 +41,30 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.addCookie(createCookie("name", customUserDetails.getName()));
             response.addCookie(createCookie("email", customUserDetails.getEmail()));
             response.addCookie(createCookie("birthday", customUserDetails.getBirthday()));
-                response.sendRedirect(CLIENT_URL+"/signup/select");
+            response.sendRedirect(CLIENT_URL+"/signup/select");
             return;
         }
 
-        String token = jwtUtil.createJwt(customUserDetails.getMemberId(), customUserDetails.getRole());
-        response.addCookie(createCookie("Authorization", token));
+        String access = jwtUtil.createJwt("access", customUserDetails.getMemberId(), customUserDetails.getRole());
+        String refresh = jwtUtil.createJwt("refresh", customUserDetails.getMemberId(), customUserDetails.getRole());
+
+        saveRefreshToken(refresh, customUserDetails.getMemberId());
+
+        response.addCookie(createCookie("access", access));
+        response.addCookie(createCookie("refresh", refresh));
         response.sendRedirect(CLIENT_URL);
+
+    }
+
+    private void saveRefreshToken(String token, Long memberId){
+        Member member = findMemberByMemberId(memberId);
+        RefreshToken refresh = RefreshToken.of(token, member, jwtUtil.getExpirationTime("refresh"));
+        refreshTokenRepository.save(refresh);
+    }
+
+    private Member findMemberByMemberId(Long memberId){
+        return memberRepository.findById(memberId)
+                .orElseThrow(()->new RuntimeException("Member Not Find: " + memberId));
     }
 
     private Cookie createCookie(String key, String value){
