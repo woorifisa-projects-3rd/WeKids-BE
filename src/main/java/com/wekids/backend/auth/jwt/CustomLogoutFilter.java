@@ -46,7 +46,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
         Cookie[] cookies = request.getCookies();
 
         if (cookies == null || cookies.length == 0) {
-            sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "No cookies found.");
+            sendErrorResponse(response, "No cookies found.");
             return;
         }
 
@@ -57,26 +57,26 @@ public class CustomLogoutFilter extends GenericFilterBean {
         }
 
         if (refresh == null) {
-            sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Refresh token not found.");
+            sendErrorResponse(response, "Refresh token not found.");
             return;
         }
 
         try {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
-            sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Refresh token is expired.");
+            sendErrorResponse(response, "Refresh token is expired.");
             return;
         }
 
         String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refresh")) {
-            sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid token category.");
+            sendErrorResponse(response, "Invalid token category.");
             return;
         }
 
         Boolean isExist = refreshTokenRepository.existsByToken(refresh);
         if (!isExist) {
-            sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Refresh token does not exist.");
+            sendErrorResponse(response, "Refresh token does not exist.");
             return;
         }
 
@@ -90,11 +90,13 @@ public class CustomLogoutFilter extends GenericFilterBean {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
-        response.setStatus(status);
+    private void sendErrorResponse(HttpServletResponse response,String message) throws IOException {
+        ErrorCode errorCode = ErrorCode.BAD_REQUEST_COOKIE;
+
+        response.setStatus(errorCode.getStatus().value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        ErrorResponse errorResponse = ErrorResponse.createWithoutTimeStamp(ErrorCode.BAD_REQUEST_COOKIE, message);
+        ErrorResponse errorResponse = ErrorResponse.createWithoutTimeStamp(errorCode, message);
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
     }
